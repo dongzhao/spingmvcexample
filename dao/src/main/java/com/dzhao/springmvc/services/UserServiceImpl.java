@@ -4,51 +4,65 @@ import com.dzhao.springmvc.model.User;
 import com.dzhao.springmvc.repositories.UserRepository;
 import com.dzhao.springmvc.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
- *
+ * Created by dzhao on 19/08/2015.
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-    @Autowired
     //@Resource
-    private UserService userService;
-
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public User create(@RequestBody @Valid final User user){
-        return userService.create(user);
+    @Transactional
+    public User create(User user) {
+        User newUser = user;
+        return userRepository.save(newUser);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public User update(@RequestBody @Valid final User user){
-        return userService.update(user);
-    }
+    @Transactional(rollbackFor=RuntimeException.class)
+    public User delete(Integer id) {
+        User deletedUser = userRepository.findOne(id);
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public User delete(@PathVariable("id") String id) {
-        return userService.delete(id);
-    }
+        if (deletedUser == null)
+            throw new RuntimeException("");
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public User findById(@PathVariable("id") String id) {
-        return userService.findById(id);
+        userRepository.delete(deletedUser);
+        return deletedUser;
     }
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     public List<User> findAll() {
-        return userService.findAll();
+        return userRepository.findAll();
+    }
+    @Transactional(rollbackFor=RuntimeException.class)
+    public User update(User user) {
+        User updatedUser = userRepository.findOne(user.getId());
+
+        if (updatedUser == null)
+            throw new RuntimeException("");
+
+        updatedUser.setUserName(user.getUserName());
+        updatedUser.setPassword(user.getPassword());
+        updatedUser.setEmail(user.getEmail());
+        return updatedUser;
+    }
+
+    public User findById(String id) {
+        return null;
+    }
+
+    @Transactional
+    public User findById(Integer id) {
+        return userRepository.findOne(id);
+    }
+
+    @Transactional
+    public List<User> findByUserName(String username) {
+        return userRepository.findByUserName(username);
     }
 }

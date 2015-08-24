@@ -1,7 +1,7 @@
-package com.dzhao.web.restful;
+package com.dzhao.springmvc.controllers;
 
-import com.dzhao.core.dao.service.api.UserService;
-import com.dzhao.core.model.User;
+import com.dzhao.springmvc.model.User;
+import com.dzhao.springmvc.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +11,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by dzhao on 20/08/2015.
+ *
  */
 @RestController
 public class UserController {
 
-    //@Autowired(required = true)
-    @Resource
+    @Autowired(required = true)
     private UserService userService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -32,13 +31,13 @@ public class UserController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public User delete(@PathVariable("id") String id) {
+    public User delete(@PathVariable("id") Integer id) {
         return userService.delete(id);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public User findById(@PathVariable("id") String id) {
+    public User findById(@PathVariable("id") Integer id) {
         return userService.findById(id);
     }
 
@@ -47,4 +46,5 @@ public class UserController {
     public List<User> findAll() {
         return userService.findAll();
     }
+
 }
