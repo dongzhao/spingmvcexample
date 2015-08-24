@@ -41,53 +41,39 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-
-
-        <!--      <dependency>
-                  <groupId>org.springframework.data</groupId>
-                  <artifactId>spring-data-jpa</artifactId>
-                  <version>${srping.jpa.version}</version>
-                  <exclusions>
-                      <exclusion>
-                          <artifactId>spring-asm</artifactId>
-                          <groupId>org.springframework</groupId>
-                      </exclusion>
-                  </exclusions>
-              </dependency>
-
-              <dependency>
-                  <groupId>org.hibernate</groupId>
-                  <artifactId>hibernate-core</artifactId>
-                  <version>${hibernate.version}</version>
-              </dependency>
-
-
-              <dependency>
-                  <groupId>org.hibernate</groupId>
-                  <artifactId>hibernate-entitymanager</artifactId>
-                  <version>${hibernate.version}</version>
-              </dependency>
-
-              <dependency>
-                  <groupId>org.hibernate.javax.persistence</groupId>
-                  <artifactId>hibernate-jpa-2.1-api</artifactId>
-                  <version>1.0.0.Final</version>
-              </dependency>
-      -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>1.2.5.RELEASE</version>
+            <version>${spring.boot.version}</version>
             <scope>test</scope>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+<!--
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>springloaded</artifactId>
+            <version>1.2.4.RELEASE</version>
+        </dependency>-->
+    </dependencies>
+<!--
     <build>
         <plugins>
-            <!-- Spring Boot Maven -->
+            &lt;!&ndash; Spring Boot Maven &ndash;&gt;
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -95,6 +81,6 @@
             </plugin>
 
         </plugins>
-    </build>
+    </build>-->
 
 </project>

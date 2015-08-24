@@ -59,7 +59,7 @@ public class UserControllerTest {
         User returnedUser = userController.createUser(user);
         // verify user was passed to UserService
         verify(userService, times(1)).save(user);
-        assertEquals("Returned user should come from the service", savedUser, returnedUser);
+        assertEquals("Returned user should come from the services", savedUser, returnedUser);
     }
 
     private User stubServiceToReturnStoredUser() {
