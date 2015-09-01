@@ -15,14 +15,19 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //@Resource
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @Transactional
     public User create(User user) {
-        User newUser = user;
-        return userRepository.save(newUser);
+        User newUser = userRepository.save(user);
+        User findUser = userRepository.findOne(newUser.getId());
+        System.out.println("user id: " + findUser.getId());
+        return findUser;
     }
 
     @Transactional(rollbackFor=RuntimeException.class)
@@ -35,10 +40,14 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(deletedUser);
         return deletedUser;
     }
+
     @Transactional
     public List<User> findAll() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        System.out.println("Number of users: " + users.size());
+        return users;
     }
+
     @Transactional(rollbackFor=RuntimeException.class)
     public User update(User user) {
         User updatedUser = userRepository.findOne(user.getId());
@@ -52,13 +61,11 @@ public class UserServiceImpl implements UserService {
         return updatedUser;
     }
 
-    public User findById(String id) {
-        return null;
-    }
-
     @Transactional
     public User findById(Integer id) {
-        return userRepository.findOne(id);
+        User findUser = userRepository.findOne(id);
+        System.out.println("find user: "+findUser.getUserName());
+        return findUser;
     }
 
     @Transactional

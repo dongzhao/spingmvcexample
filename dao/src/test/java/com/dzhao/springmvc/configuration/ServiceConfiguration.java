@@ -8,12 +8,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * Created by dzhao on 24/08/2015.
+ * Created by dzhao on 25/08/2015.
  */
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackages = {"com.dzhao.springmvc.model"})
 @EnableJpaRepositories(basePackages = {"com.dzhao.springmvc.repositories"})
 @EnableTransactionManagement
-public class RepositoryConfiguration {
+@ComponentScan(basePackages = {"com.dzhao.springmvc.services"})
+public class ServiceConfiguration {
 }

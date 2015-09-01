@@ -8,7 +8,7 @@ import java.util.List;
 /**
  *
  */
-@NoRepositoryBean
+//@NoRepositoryBean
 public interface UserService {
     public User create(User user);
     public User delete(Integer id);

@@ -1,6 +1,7 @@
 package com.dzhao.springmvc.model;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  *

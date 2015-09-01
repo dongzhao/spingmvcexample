@@ -16,11 +16,18 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @Autowired(required = true)
+    @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getName(){
+        System.out.println("return service name...");
+        return UserController.class.getSimpleName();
+    }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public User create(@RequestBody @Valid final User user){
+        System.out.println("start to create a new user...");
         return userService.create(user);
     }
 
@@ -30,20 +37,24 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    //@ResponseStatus(HttpStatus.NO_CONTENT)
     public User delete(@PathVariable("id") Integer id) {
         return userService.delete(id);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    //@ResponseStatus(HttpStatus.NO_CONTENT)
     public User findById(@PathVariable("id") Integer id) {
+        System.out.println("find the user by id ["+ id + "]");
         return userService.findById(id);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    //@ResponseStatus(HttpStatus.NO_CONTENT)
     public List<User> findAll() {
+        System.out.println("list all users");
         return userService.findAll();
     }
 
