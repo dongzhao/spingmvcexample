@@ -1,1 +1,1 @@
-curl http://localhost:8090/
+curl http://localhost:8090/user/name

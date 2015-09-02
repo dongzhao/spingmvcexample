@@ -14,12 +14,13 @@ import java.util.List;
  *
  */
 @RestController
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/name", method = RequestMethod.GET)
     public String getName(){
         System.out.println("return service name...");
         return UserController.class.getSimpleName();
@@ -37,22 +38,19 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    //@ResponseStatus(HttpStatus.NO_CONTENT)
     public User delete(@PathVariable("id") Integer id) {
         return userService.delete(id);
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    //@ResponseStatus(HttpStatus.NO_CONTENT)
     public User findById(@PathVariable("id") Integer id) {
         System.out.println("find the user by id ["+ id + "]");
         return userService.findById(id);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    //@ResponseStatus(HttpStatus.NO_CONTENT)
     public List<User> findAll() {
         System.out.println("list all users");
         return userService.findAll();
