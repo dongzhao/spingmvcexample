@@ -1,0 +1,132 @@
+<html>
+<!--
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" ></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js" type="text/javascript"></script>
+-->
+
+<body>
+<!--
+<form method="POST" enctype="multipart/form-data"
+      action="/file/upload">
+    File to upload: <input type="file" name="file"><br /> Name: <input
+        type="text" name="name"><br /> <br />
+    <input type="submit" value="Upload"> Press here to upload the file!
+</form>-->
+
+<div ng-controller="UploadCtrl">
+    <input type="file" multiple ng-model="files" file-change>
+    <br><br>
+    Selected: {{ files.length }}
+</div>
+
+
+
+<script>
+    // -------------------------
+    var files = document.getElementById('file').files;
+
+    angular.forEach(files, function (file) {
+        var formData = new FormData();
+        formData.append(file.name, file);
+    });
+
+    $http.post('http://localhost', formData, {
+        transformRequest: angular.identity,
+        headers: { 'Content-Type': undefined }
+    })
+            .success(function (a, b, c) {
+            })
+            .error(function (a, b, c) {
+            });
+    // ------------------------------------------
+
+
+    // Module
+    // ------
+    var upload = angular.module('upload', []);
+
+
+    // Directive
+    // ---------
+    upload.directive('fileChange', function () {
+
+        var linker = function ($scope, element, attributes) {
+            // onChange, push the files to $scope.files.
+            element.bind('change', function (event) {
+                var files = event.target.files;
+                $scope.$apply(function () {
+                    for (var i = 0, length = files.length; i < length; i++) {
+                        $scope.files.push(files[i]);
+                    }
+                });
+            });
+        };
+
+        return {
+            restrict: 'A',
+            link: linker
+        };
+
+    });
+
+
+    // Factory
+    // -------
+    upload.factory('uploadService', ['$rootScope', function ($rootScope) {
+
+        return {
+            send: function (file) {
+                var data = new FormData(),
+                        xhr = new XMLHttpRequest();
+
+                // When the request starts.
+                xhr.onloadstart = function () {
+                    console.log('Factory: upload started: ', file.name);
+                    $rootScope.$emit('upload:loadstart', xhr);
+                };
+
+                // When the request has failed.
+                xhr.onerror = function (e) {
+                    $rootScope.$emit('upload:error', e);
+                };
+
+                // Send to server, where we can then access it with $_FILES['file].
+                data.append('file', file, file.name);
+                xhr.open('POST', '/echo/json');
+                xhr.send(data);
+            }
+        };
+
+    }]);
+
+
+    // Controller
+    // ----------
+    upload.controller('UploadCtrl', ['$scope', '$rootScope', 'uploadService', function ($scope, $rootScope, uploadService) {
+
+        // 'files' is an array of JavaScript 'File' objects.
+        $scope.files = [];
+
+        $scope.$watch('files', function (newValue, oldValue) {
+            // Only act when our property has changed.
+            if (newValue != oldValue) {
+                console.log('Controller: $scope.files changed. Start upload.');
+                for (var i = 0, length = $scope.files.length; i < length; i++) {
+                    // Hand file off to uploadService.
+                    uploadService.send($scope.files[i]);
+                }
+            }
+        }, true);
+
+        $rootScope.$on('upload:loadstart', function () {
+            console.log('Controller: on `loadstart`');
+        });
+
+        $rootScope.$on('upload:error', function () {
+            console.log('Controller: on `error`');
+        });
+
+    }]);
+</script>
+</body>
+</html>

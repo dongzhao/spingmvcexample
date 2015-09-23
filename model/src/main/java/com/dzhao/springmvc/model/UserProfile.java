@@ -1,7 +1,11 @@
 package com.dzhao.springmvc.model;
 
+import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
+import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
+import com.dzhao.springmvc.model.converter.BooleanToStringConverter;
+import com.dzhao.springmvc.model.generic.AbstractDomain;
+
 import javax.persistence.*;
-import javax.swing.text.StyledEditorKit;
 import java.util.Date;
 
 /**
@@ -9,7 +13,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "my_user_profile")
-public class UserProfile extends AbstractBaseEntity {
+@GenerateRepository(
+        modelPackageName = "com.dzhao.springmvc.model.*")
+@GenerateRestController(
+        modelPackageName = "com.dzhao.springmvc.model.*",
+        urlPath = "/rest/api/"
+)
+public class UserProfile extends AbstractDomain {
 
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
@@ -19,6 +29,7 @@ public class UserProfile extends AbstractBaseEntity {
     //@JsonFormat(pattern="yyyy-MM-dd")
     private Date dateOfBirth;
     @Column
+    @Convert(converter = BooleanToStringConverter.class)
     private boolean gender;
 
     public User getUser() {

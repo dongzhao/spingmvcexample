@@ -11,8 +11,8 @@ import java.util.List;
 
 public interface UserProfileService {
     public UserProfile create(UserProfile userProfile);
-    public UserProfile delete(Integer id);
+    public UserProfile delete(String id);
     public List<UserProfile> findAll();
     public UserProfile update(UserProfile user);
-    public UserProfile findById(Integer id);
+    public UserProfile findById(String id);
 }

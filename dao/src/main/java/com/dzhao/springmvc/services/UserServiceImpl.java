@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(rollbackFor=RuntimeException.class)
-    public User delete(Integer id) {
+    public User delete(String id) {
         User deletedUser = userRepository.findOne(id);
 
         if (deletedUser == null)
@@ -62,14 +62,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public User findById(Integer id) {
+    public User findById(String id) {
         User findUser = userRepository.findOne(id);
         System.out.println("find user: "+findUser.getUserName());
         return findUser;
-    }
-
-    @Transactional
-    public List<User> findByUserName(String username) {
-        return userRepository.findByUserName(username);
     }
 }

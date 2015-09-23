@@ -11,9 +11,9 @@ import java.util.List;
 //@NoRepositoryBean
 public interface UserService {
     public User create(User user);
-    public User delete(Integer id);
+    public User delete(String id);
     public List<User> findAll();
     public User update(User user);
-    public User findById(Integer id);
+    public User findById(String id);
 /*    List<User> findByUserName(String username);*/
 }

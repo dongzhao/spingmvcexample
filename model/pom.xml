@@ -18,30 +18,92 @@
     <dependencies>
         <dependency>
             <groupId>com.dzhao.exams.spring</groupId>
-            <artifactId>utility</artifactId>
+            <artifactId>code-gen</artifactId>
             <version>${project.version}</version>
         </dependency>
 
-        <!-- jpa/hibernate -->
-
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bsc.maven</groupId>
+            <artifactId>maven-processor-plugin</artifactId>
+            <version>2.2.4</version>
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>code-gen</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.bsc.maven</groupId>
+                        <artifactId>maven-processor-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>code-gen-processor</id>
+                                <goals>
+                                    <goal>process</goal>
+                                </goals>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <sourceDirectory>src/main/java</sourceDirectory>
+                                    <processors>
+                                        <processor>com.dzhao.springmvc.codegen.processor.CodeGenProcessor</processor>
+                                    </processors>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>code-gen-test-processor</id>
+                                <goals>
+                                    <goal>process</goal>
+                                </goals>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <sourceDirectory>src/main/java</sourceDirectory>
+                                    <processors>
+                                        <processor>com.dzhao.springmvc.codegen.processor.CodeGenProcessor</processor>
+                                    </processors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>add-generated-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-sources/apt/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

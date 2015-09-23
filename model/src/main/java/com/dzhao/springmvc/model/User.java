@@ -1,14 +1,23 @@
 package com.dzhao.springmvc.model;
+
+import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
+import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
+
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  *
  */
 @Entity
 @Table(name = "my_user")
-public class User extends AbstractBaseEntity{
+@GenerateRepository(
+        modelPackageName = "com.dzhao.springmvc.model.*")
+@GenerateRestController(
+        modelPackageName = "com.dzhao.springmvc.model.*",
+        urlPath = "/rest/api/"
+)
+public class User extends AbstractDomain {
 
     @Column(name="USER_NAME", nullable = false)
     private String userName;

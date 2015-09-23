@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by dzhao on 19/08/2015.
- */
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
 
@@ -34,7 +31,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Transactional(rollbackFor=RuntimeException.class)
-    public UserProfile delete(Integer id) {
+    public UserProfile delete(String id) {
         UserProfile deletedUserProfile= userProfileRepository.findOne(id);
 
         if (deletedUserProfile == null)
@@ -64,7 +61,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Transactional
-    public UserProfile findById(Integer id) {
+    public UserProfile findById(String id) {
         UserProfile findUserProfile = userProfileRepository.findOne(id);
         System.out.println("find userprofile: "+findUserProfile.getUser().getUserName());
         return findUserProfile;

@@ -1,6 +1,6 @@
 package com.dzhao.springmvc.model.generic;
 
-import com.dzhao.core.utility.IdGenerator;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,11 +8,9 @@ import java.util.Date;
 /**
  * Created by dzhao on 19/08/2015.
  */
-public abstract class AbstractDomain implements BaseDomain<Integer> {
-    @Id
-    //protected String id = IdGenerator.generateId();
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
+@MappedSuperclass
+public abstract class AbstractDomain extends AbstractBaseDomain {
+
     @Version
     protected Long version;
     @Temporal(value = javax.persistence.TemporalType.TIMESTAMP)
@@ -21,14 +19,6 @@ public abstract class AbstractDomain implements BaseDomain<Integer> {
     @Temporal(value = javax.persistence.TemporalType.TIMESTAMP)
     @Column(name = "modified_datetime")
     protected Date lastModificationDate;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     protected Long getVersion() {
         return version;

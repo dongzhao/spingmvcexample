@@ -15,25 +15,8 @@ import java.util.Date;
 /**
  * Created by dzhao on 24/08/2015.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
-public class UserProfileRepositoryTest {
-
-    private UserProfileRepository userProfileRepository;
-
-    private UserRepository userRepository;
-
-    @Autowired
-    public void setUserProfileRepository(UserProfileRepository userProfileRepository) {
-        this.userProfileRepository = userProfileRepository;
-    }
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Test
+public class UserProfileRepositoryTest extends AbstractRepositoryTest{
+   @Test
     public void testSave(){
 
         User kevin = new User();
