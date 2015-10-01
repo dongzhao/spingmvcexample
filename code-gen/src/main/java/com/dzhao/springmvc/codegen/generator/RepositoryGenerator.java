@@ -12,6 +12,7 @@ import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.util.Collection;
 
+
 /**
  * Created by dzhao on 22/09/2015.
  */
@@ -36,7 +37,7 @@ public class RepositoryGenerator extends AbstractGenerator{
 
             String modelSimpleName = element.getSimpleName().toString();
             String modelPackageName = repository.modelPackageName();
-            String repositoryPackageName = repository.repositoryPackageName();
+            String repositoryPackageName = repository.packageName();
             if(repositoryPackageName.isEmpty()){
                 StringBuilder sb = new StringBuilder();
                 sb.append(modelPackageName.substring(0, modelPackageName.lastIndexOf(".model."))+".repositories");
@@ -51,25 +52,25 @@ public class RepositoryGenerator extends AbstractGenerator{
             info.setModelPackageName(modelPackageName);
             info.setRepositoryPackageName(repositoryPackageName);
             info.setModelSimpleName(modelSimpleName);
-            info.setSimpleName(simpleName);
+            info.setRepositorySimpleName(simpleName);
             try {
-                // to add the target folder path
+                // to add the target folder rootPath
                 String sourcePath = processingEnv.getFiler().getResource(StandardLocation.SOURCE_OUTPUT, "", "test").toUri().getPath();
                 targetSourcePath.append(sourcePath.substring(0, sourcePath.lastIndexOf("/target/")) + "/");
                 System.out.println("targetSourcePath: " + targetSourcePath.toString());
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-            // to aggregate the target path from annotation target
+            // to aggregate the target rootPath from annotation target
             targetSourcePath.append(repository.target());
             System.out.println("targetSourcePath: " + targetSourcePath.toString());
-            // to aggregate the target path from annotation package name
+            // to aggregate the target rootPath from annotation package name
             System.out.println("modelPackageName: " + modelPackageName);
             System.out.println("repsitoryPackageName: " + repositoryPackageName);
             System.out.println("repsitoryPackageName: " + repositoryPackageName.replace(".", "/"));
             targetSourcePath.append(repositoryPackageName.replace(".", "/") + "/");
             System.out.println("targetSourcePath: " + targetSourcePath.toString());
-            // to aggregate the target path from annotation simple dao class name
+            // to aggregate the target rootPath from annotation simple dao class name
             targetSourcePath.append(simpleName + ".java");
             System.out.println("targetSourcePath: " + targetSourcePath.toString());
             FreeMarkerWriter writer = new FreeMarkerWriter("src/main/resources/repository.ftl", targetSourcePath.toString(), info);

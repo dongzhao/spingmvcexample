@@ -21,7 +21,11 @@
             <artifactId>code-gen</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.dzhao.exams.spring</groupId>
+            <artifactId>utility</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -59,11 +63,13 @@
                                 <configuration>
                                     <sourceDirectory>src/main/java</sourceDirectory>
                                     <processors>
-                                        <processor>com.dzhao.springmvc.codegen.processor.CodeGenProcessor</processor>
+                                        <!--<processor>com.dzhao.springmvc.codegen.processor.CodeGenProcessor</processor>-->
+                                        <processor>com.dzhao.springmvc.codegen.processor.RepositoryCodeGenProcessor</processor>
+                                        <processor>com.dzhao.springmvc.codegen.processor.RestControllerCodeGenProcessor</processor>
                                     </processors>
                                 </configuration>
                             </execution>
-                            <execution>
+<!--                            <execution>
                                 <id>code-gen-test-processor</id>
                                 <goals>
                                     <goal>process</goal>
@@ -75,7 +81,7 @@
                                         <processor>com.dzhao.springmvc.codegen.processor.CodeGenProcessor</processor>
                                     </processors>
                                 </configuration>
-                            </execution>
+                            </execution>-->
                         </executions>
                     </plugin>
                 </plugins>

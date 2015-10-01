@@ -1,5 +1,7 @@
 package com.dzhao.springmvc.model;
 
+import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
+import com.dzhao.springmvc.codegen.annotation.GenerateRepo;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
@@ -14,11 +16,18 @@ import java.util.List;
 @Entity
 @Table(name = "my_order")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*")
+        modelPackageName = "com.dzhao.springmvc.model.*",
+        method = {
+                @GenerateMethod(name = "orderDate", type = "Date")
+        }
+)
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",
-        urlPath = "/rest/api/"
+        method = {
+                @GenerateMethod(name = "orderDate", type = "Date")
+        }
 )
+@GenerateRepo
 public class Order extends AbstractDomain {
     @Column(name="ORDER_DATE")
     private Date orderDate;

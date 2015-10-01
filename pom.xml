@@ -15,6 +15,7 @@
         <module>dao</module>
         <module>webservices</module>
         <module>code-gen</module>
+        <module>utility</module>
     </modules>
 
     <properties>
@@ -31,6 +32,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.10</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>

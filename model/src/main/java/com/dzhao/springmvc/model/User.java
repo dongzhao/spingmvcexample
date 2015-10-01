@@ -1,5 +1,7 @@
 package com.dzhao.springmvc.model;
 
+import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
+import com.dzhao.springmvc.codegen.annotation.GenerateRepo;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
@@ -12,11 +14,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "my_user")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*")
+        modelPackageName = "com.dzhao.springmvc.model.*",
+        method = {
+                @GenerateMethod(name = "userName", type = "String"),
+                @GenerateMethod(name = "email", type = "String")
+        }
+)
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",
-        urlPath = "/rest/api/"
+        method = {
+                @GenerateMethod(name = "userName", type = "String"),
+                @GenerateMethod(name = "email", type = "String")
+        }
 )
+@GenerateRepo
 public class User extends AbstractDomain {
 
     @Column(name="USER_NAME", nullable = false)

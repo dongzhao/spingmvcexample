@@ -1,5 +1,6 @@
 package com.dzhao.springmvc.codegen;
 
+import freemarker.cache.FileTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -27,6 +28,12 @@ public class FreeMarkerWriter {
         Template template = null;
         try {
             System.out.println("templateUrl: " + templateUrl);
+/*
+
+            String templatePath = getParentPath(this.getClass().getClassLoader().getSystemResource(templateUrl).getPath());
+            FileTemplateLoader templateLoader = new FileTemplateLoader(new File(templatePath));
+            cfg.setTemplateLoader(templateLoader);*/
+
             template = cfg.getTemplate(templateUrl);
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -51,5 +58,12 @@ public class FreeMarkerWriter {
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
+    }
+
+    private static String getParentPath(String filePath){
+        File file = new File(filePath);
+        if(!file.exists())
+            throw new RuntimeException("The file doesn't exist by [" +filePath+ "]");
+        return file.getParent();
     }
 }

@@ -5,6 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ${simpleName} extends JpaRepository<${modelSimpleName}, String> {
-
+public interface ${repositorySimpleName} extends JpaRepository<${modelSimpleName}, String> {
+<#if repositoryMethods??>
+    <#list repositoryMethods as method>
+    public ${method}
+    </#list>
+</#if>
 }

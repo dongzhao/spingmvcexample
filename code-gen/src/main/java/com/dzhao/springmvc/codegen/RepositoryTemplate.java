@@ -1,5 +1,7 @@
 package com.dzhao.springmvc.codegen;
 
+import java.util.List;
+
 /**
  * Created by dzhao on 22/09/2015.
  */
@@ -7,8 +9,8 @@ public class RepositoryTemplate {
     private String modelPackageName;
     private String repositoryPackageName;
     private String modelSimpleName;
-    private String SimpleName;
-    private String targetPath;
+    private String repositorySimpleName;
+    private List<String> repositoryMethods;
 
     public String getModelPackageName() {
         return modelPackageName;
@@ -34,19 +36,19 @@ public class RepositoryTemplate {
         this.modelSimpleName = modelSimpleName;
     }
 
-    public String getSimpleName() {
-        return SimpleName;
+    public String getRepositorySimpleName() {
+        return repositorySimpleName;
     }
 
-    public void setSimpleName(String simpleName) {
-        SimpleName = simpleName;
+    public void setRepositorySimpleName(String repositorySimpleName) {
+        this.repositorySimpleName = repositorySimpleName;
     }
 
-    public String getTargetPath() {
-        return targetPath;
+    public List<String> getRepositoryMethods() {
+        return repositoryMethods;
     }
 
-    public void setTargetPath(String targetPath) {
-        this.targetPath = targetPath;
+    public void setRepositoryMethods(List<String> repositoryMethods) {
+        this.repositoryMethods = repositoryMethods;
     }
 }

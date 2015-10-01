@@ -20,6 +20,13 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.dzhao.exams.spring</groupId>
+            <artifactId>utility</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>

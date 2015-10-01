@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface GenerateRepository {
-    public String modelPackageName() default "";
-    public String repositoryPackageName() default "";
-    public String modelSimpleName() default "";
-    public String simpleName() default "";
-    public String target() default "target/generated-sources/apt/";
-    public String targetTest() default "target/generated-test-sources/apt/";
+    String modelPackageName() default "";
+    String modelSimpleName() default "";
+    String packageName() default "";
+    String simpleName() default "";
+    GenerateMethod[] method() default{};
+    String target() default "target/generated-sources/apt/";
 }

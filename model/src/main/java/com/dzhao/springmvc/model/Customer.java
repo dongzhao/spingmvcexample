@@ -1,7 +1,9 @@
 package com.dzhao.springmvc.model;
 
+import com.dzhao.springmvc.codegen.annotation.GenerateRepoMethod;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
+import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
 import com.dzhao.springmvc.model.converter.BooleanToStringConverter;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
 
@@ -12,14 +14,25 @@ import java.util.List;
 @Entity
 @Table(name = "my_customer")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*")
+        modelPackageName = "com.dzhao.springmvc.model.*",
+        method = {
+                @GenerateMethod(name = "firstName", type = "String"),
+                @GenerateMethod(name = "lastName", type = "String"),
+                @GenerateMethod(name = "gender", type = "Boolean")
+        }
+)
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",
-        urlPath = "/rest/api/"
+        method = {
+                @GenerateMethod(name = "firstName", type = "String"),
+                @GenerateMethod(name = "lastName", type = "String"),
+                @GenerateMethod(name = "gender", type = "Boolean")
+        }
 )
 public class Customer extends AbstractDomain {
     @Column(name="FIRST_NAME")
     private String firstName;
+    @GenerateRepoMethod
     @Column(name="LAST_NAME")
     private String lastName;
     @Convert(converter = BooleanToStringConverter.class)

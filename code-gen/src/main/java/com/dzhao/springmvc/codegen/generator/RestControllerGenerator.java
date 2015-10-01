@@ -53,8 +53,8 @@ public class RestControllerGenerator extends AbstractGenerator{
                 packageName = sb.toString();
             }
 
-            StringBuilder urlBuilder = new StringBuilder(controller.urlPath());
-            if(!controller.urlPath().endsWith("/")){
+            StringBuilder urlBuilder = new StringBuilder(controller.rootPath());
+            if(!controller.rootPath().endsWith("/")){
                 urlBuilder.append("/");
             }
             urlBuilder.append(modelClassName);
@@ -70,19 +70,19 @@ public class RestControllerGenerator extends AbstractGenerator{
             info.setSimpleName(simpleName);
             info.setUrlPathName(urlBuilder.toString());
             try {
-                // to add the target folder path
+                // to add the target folder rootPath
                 String sourcePath = processingEnv.getFiler().getResource(StandardLocation.SOURCE_OUTPUT, "", "test").toUri().getPath();
                 targetSourcePath.append(sourcePath.substring(0, sourcePath.lastIndexOf("/target/")) + "/");
                 System.out.println("targetSourcePath: " + targetSourcePath.toString());
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-            // to aggregate the target path from annotation target
+            // to aggregate the target rootPath from annotation target
             targetSourcePath.append(controller.target());
             System.out.println("targetSourcePath: " + targetSourcePath.toString());
-            // to aggregate the target path from annotation package name
+            // to aggregate the target rootPath from annotation package name
             targetSourcePath.append(packageName.replace(".", "/") + "/");
-            // to aggregate the target path from annotation simple dao class name
+            // to aggregate the target rootPath from annotation simple dao class name
             targetSourcePath.append(simpleName + ".java");
             FreeMarkerWriter writer = new FreeMarkerWriter("src/main/resources/rest-controller.ftl", targetSourcePath.toString(), info);
             writer.write();

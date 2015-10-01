@@ -1,5 +1,7 @@
 package com.dzhao.springmvc.codegen;
 
+import java.util.List;
+
 /**
  * Created by dzhao on 22/09/2015.
  */
@@ -13,6 +15,7 @@ public class RestControllerTemplate {
     private String urlPathName;
     private String simpleName;
     private String packageName;
+    private List<MethodTemplate> methods;
 
     public String getModelPackageName() {
         return modelPackageName;
@@ -84,5 +87,13 @@ public class RestControllerTemplate {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public List<MethodTemplate> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<MethodTemplate> methods) {
+        this.methods = methods;
     }
 }

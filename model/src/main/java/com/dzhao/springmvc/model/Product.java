@@ -1,5 +1,7 @@
 package com.dzhao.springmvc.model;
 
+import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
+import com.dzhao.springmvc.codegen.annotation.GenerateRepo;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
@@ -12,11 +14,20 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "my_product")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*")
+        modelPackageName = "com.dzhao.springmvc.model.*",
+        method = {
+                @GenerateMethod(name = "name", type = "String"),
+                @GenerateMethod(name = "price", type = "BigDecimal")
+        }
+)
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",
-        urlPath = "/rest/api/"
+        method = {
+                @GenerateMethod(name = "name", type = "String"),
+                @GenerateMethod(name = "price", type = "BigDecimal")
+        }
 )
+@GenerateRepo
 public class Product extends AbstractDomain {
     private String name;
     private BigDecimal price;

@@ -1,5 +1,7 @@
 package com.dzhao.springmvc.model;
 
+import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
+import com.dzhao.springmvc.codegen.annotation.GenerateRepo;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
 import com.dzhao.springmvc.model.converter.BooleanToStringConverter;
@@ -14,11 +16,19 @@ import java.util.Date;
 @Entity
 @Table(name = "my_user_profile")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*")
+        modelPackageName = "com.dzhao.springmvc.model.*",
+        method = {
+                @GenerateMethod(name = "user", type = "User"),
+                @GenerateMethod(name = "address", type = "String"),
+                @GenerateMethod(name = "dateOfBirth", type = "Date"),
+                @GenerateMethod(name = "gender", type = "boolean")
+        }
+)
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",
-        urlPath = "/rest/api/"
+        rootPath = "/rest/api/"
 )
+@GenerateRepo
 public class UserProfile extends AbstractDomain {
 
     @OneToOne(cascade = CascadeType.ALL)

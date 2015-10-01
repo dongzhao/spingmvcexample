@@ -1,5 +1,7 @@
 package com.dzhao.springmvc.model;
 
+import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
+import com.dzhao.springmvc.codegen.annotation.GenerateRepo;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
@@ -9,11 +11,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "my_order_details")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*")
-@GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",
-        urlPath = "/rest/api/"
+        method = {
+                @GenerateMethod(name = "order", type = "Order"),
+                @GenerateMethod(name = "product", type = "Product")
+        }
 )
+@GenerateRestController(
+        modelPackageName = "com.dzhao.springmvc.model.*"
+)
+@GenerateRepo
 public class OrderDetails extends AbstractDomain {
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "order_id")
