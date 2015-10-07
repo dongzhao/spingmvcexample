@@ -16,6 +16,7 @@
         <module>webservices</module>
         <module>code-gen</module>
         <module>utility</module>
+        <module>services</module>
     </modules>
 
     <properties>
