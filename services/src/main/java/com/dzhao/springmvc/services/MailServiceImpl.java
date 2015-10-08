@@ -1,10 +1,9 @@
 package com.dzhao.springmvc.services;
 
-import com.dzhao.springmvc.config.MailConfig;
+import com.dzhao.springmvc.services.api.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
@@ -12,39 +11,18 @@ import org.springframework.stereotype.Service;
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 
 /**
  * Created by dzhao on 7/10/2015.
  */
 @Service("mailService")
-public class MailServiceImpl {
+public class MailServiceImpl implements MailService{
 
-    private JavaMailSenderImpl mailSender;
-    private SimpleMailMessage templateMessage;
-    private MailConfig config;
-
-/*
-    @Autowired
-    public void setMailSender(JavaMailSenderImpl mailSender){this.mailSender = mailSender;}
-*/
-    @Autowired
-    public void setTemplateMessage(SimpleMailMessage templateMessage) {this.templateMessage = templateMessage;}
+    private JavaMailSender  mailSender;
 
     @Autowired
-    public MailServiceImpl(MailConfig config){
-        this.config = config;
-        mailSender = new JavaMailSenderImpl();
-        Properties mailProperties = new Properties();
-        mailProperties.put("mail.smtp.auth", config.isAuth());
-        mailProperties.put("mail.smtp.starttls.enable", config.isStarttls());
-        mailSender.setJavaMailProperties(mailProperties);
-
-        mailSender.setHost(config.getHost());
-        mailSender.setPort(config.getPort());
-        mailSender.setProtocol(config.getProtocol());
-        mailSender.setUsername(config.getUsername());
-        mailSender.setPassword(config.getPassword());
+    public MailServiceImpl(JavaMailSender  mailSender){
+        this.mailSender = mailSender;
     }
 
     public void sendEmail(String to, String subject, String body){
@@ -53,12 +31,6 @@ public class MailServiceImpl {
         message.setSubject(subject);
         message.setText(body);
         mailSender.send(message);
-    }
-
-    public void sendEmail(String msg){
-        SimpleMailMessage mailMessage = new SimpleMailMessage(templateMessage);
-        mailMessage.setText(msg);
-        mailSender.send(mailMessage);
     }
 
     public void sendConfirmationEmail(final String to, final String subject, final String body){
