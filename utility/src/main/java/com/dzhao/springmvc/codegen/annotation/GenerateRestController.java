@@ -18,5 +18,6 @@ public @interface GenerateRestController {
     String simplePackageName() default "";
     String rootPath() default "/rest/api/";
     GenerateMethod[] method() default {};
+    GenerateJoinedMethod[] joinedMethod() default {};
     String target() default "target/generated-sources/apt/";
 }

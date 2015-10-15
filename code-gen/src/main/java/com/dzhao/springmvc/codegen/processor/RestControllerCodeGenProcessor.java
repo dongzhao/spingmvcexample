@@ -4,9 +4,11 @@ import com.dzhao.springmvc.codegen.FreeMarkerWriter;
 import com.dzhao.springmvc.codegen.MethodTemplate;
 import com.dzhao.springmvc.codegen.RepositoryTemplate;
 import com.dzhao.springmvc.codegen.RestControllerTemplate;
+import com.dzhao.springmvc.codegen.annotation.GenerateJoinedMethod;
 import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
+import com.dzhao.springmvc.codegen.enums.OperatorEnum;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -87,18 +89,46 @@ public class RestControllerCodeGenProcessor extends AbstractProcessor {
                 template.setMethods(new ArrayList<MethodTemplate>());
                 if(controller.method()!=null) {
                     for (GenerateMethod method : controller.method()) {
+                        OperatorEnum operator = method.opertor();
+                        String fieldName = method.name();
                         MethodTemplate methodTemplate = new MethodTemplate();
                         methodTemplate.setName(method.name());
                         methodTemplate.setType(method.type());
-                        String fieldName = method.name();
                         StringBuilder sb = new StringBuilder();
                         sb.append("findBy");
                         sb.append(fieldName.substring(0, 1).toUpperCase());
                         sb.append(fieldName.substring(1, fieldName.length()));
+                        if (!operator.equals(OperatorEnum.EQUALS)) {
+                            sb.append(operator.getValue());
+                        }
                         methodTemplate.setMethod(sb.toString());
                         template.getMethods().add(methodTemplate);
                     }
                 }
+
+                if(controller.joinedMethod()!=null) {
+                    for (GenerateJoinedMethod joinedMethod : controller.joinedMethod()) {
+                        for (GenerateMethod method : joinedMethod.method()){
+                            OperatorEnum operator = method.opertor();
+                            String fieldName = method.name();
+                            MethodTemplate methodTemplate = new MethodTemplate();
+                            methodTemplate.setName(method.name());
+                            methodTemplate.setType(method.type());
+                            StringBuilder sb = new StringBuilder();
+                            sb.append("findBy");
+                            sb.append(fieldName.substring(0, 1).toUpperCase());
+                            sb.append(fieldName.substring(1, fieldName.length()));
+                            if (!operator.equals(OperatorEnum.EQUALS)) {
+                                sb.append(operator.getValue());
+                            }
+                            methodTemplate.setMethod(sb.toString());
+                            template.getMethods().add(methodTemplate);
+                        }
+
+
+                    }
+                }
+
 
                 try {
                     // to add the target folder rootPath

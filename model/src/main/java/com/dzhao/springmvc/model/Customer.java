@@ -1,9 +1,6 @@
 package com.dzhao.springmvc.model;
 
-import com.dzhao.springmvc.codegen.annotation.GenerateRepoMethod;
-import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
-import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
-import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
+import com.dzhao.springmvc.codegen.annotation.*;
 import com.dzhao.springmvc.model.converter.BooleanToStringConverter;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
 
@@ -18,8 +15,18 @@ import java.util.List;
         method = {
                 @GenerateMethod(name = "firstName", type = "String"),
                 @GenerateMethod(name = "lastName", type = "String"),
-                @GenerateMethod(name = "gender", type = "Boolean")
+                @GenerateMethod(name = "gender", type = "Boolean"),
+        },
+        joinedMethod = {
+                @GenerateJoinedMethod(
+                        method = {
+                                @GenerateMethod(name = "firstName", type = "String"),
+                                @GenerateMethod(name = "lastName", type = "String"),
+                                @GenerateMethod(name = "gender", type = "Boolean"),
+                        }
+                )
         }
+
 )
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",

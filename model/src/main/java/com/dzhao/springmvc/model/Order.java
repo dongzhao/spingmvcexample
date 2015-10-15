@@ -4,6 +4,7 @@ import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepo;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
+import com.dzhao.springmvc.codegen.enums.OperatorEnum;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
 
 import javax.persistence.Column;
@@ -18,13 +19,13 @@ import java.util.List;
 @GenerateRepository(
         modelPackageName = "com.dzhao.springmvc.model.*",
         method = {
-                @GenerateMethod(name = "orderDate", type = "Date")
+                @GenerateMethod(name = "orderDate", type = "Date", opertor = OperatorEnum.AFTER)
         }
 )
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",
         method = {
-                @GenerateMethod(name = "orderDate", type = "Date")
+                @GenerateMethod(name = "orderDate", type = "Date", opertor = OperatorEnum.AFTER)
         }
 )
 @GenerateRepo

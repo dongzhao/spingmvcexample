@@ -1,3 +1,4 @@
+/*
 package com.dzhao.springmvc.config;
 
 import org.apache.log4j.LogManager;
@@ -16,9 +17,11 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import java.util.concurrent.Executor;
 
+*/
 /**
  * Created by dzhao on 8/10/2015.
- */
+ *//*
+
 @Configuration
 @EnableAsync(proxyTargetClass = true)
 @EnableScheduling
@@ -57,3 +60,4 @@ public class AsyncConfig implements SchedulingConfigurer, AsyncConfigurer {
         registrar.setTaskScheduler(scheduler);
     }
 }
+*/

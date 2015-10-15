@@ -26,7 +26,12 @@ import java.util.Date;
 )
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*",
-        rootPath = "/rest/api/"
+        method = {
+                @GenerateMethod(name = "user", type = "User"),
+                @GenerateMethod(name = "address", type = "String"),
+                @GenerateMethod(name = "dateOfBirth", type = "Date"),
+                @GenerateMethod(name = "gender", type = "boolean")
+        }
 )
 @GenerateRepo
 public class UserProfile extends AbstractDomain {

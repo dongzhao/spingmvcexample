@@ -12,9 +12,6 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface GenerateMethod {
-    String name() default "";
-    String type() default "String";
-    String alias() default "";
-    OperatorEnum opertor() default OperatorEnum.EQUALS;
+public @interface GenerateJoinedMethod {
+    GenerateMethod[] method() default{};
 }

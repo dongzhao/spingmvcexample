@@ -16,5 +16,6 @@ public @interface GenerateRepository {
     String packageName() default "";
     String simpleName() default "";
     GenerateMethod[] method() default{};
+    GenerateJoinedMethod[] joinedMethod() default{};
     String target() default "target/generated-sources/apt/";
 }

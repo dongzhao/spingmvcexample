@@ -6,6 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
@@ -19,10 +20,12 @@ import javax.mail.internet.MimeMessage;
 public class MailServiceImpl implements MailService{
 
     private JavaMailSender  mailSender;
+    private ThreadPoolTaskExecutor taskExecutor;
 
     @Autowired
-    public MailServiceImpl(JavaMailSender  mailSender){
+    public MailServiceImpl(JavaMailSender  mailSender, ThreadPoolTaskExecutor taskExecutor) {
         this.mailSender = mailSender;
+        this.taskExecutor = taskExecutor;
     }
 
     public void sendEmail(String to, String subject, String body){

@@ -11,6 +11,7 @@ public class RepositoryTemplate {
     private String modelSimpleName;
     private String repositorySimpleName;
     private List<String> repositoryMethods;
+    private List<String> repositoryJoinedMethods;
 
     public String getModelPackageName() {
         return modelPackageName;
@@ -50,5 +51,13 @@ public class RepositoryTemplate {
 
     public void setRepositoryMethods(List<String> repositoryMethods) {
         this.repositoryMethods = repositoryMethods;
+    }
+
+    public List<String> getRepositoryJoinedMethods() {
+        return repositoryJoinedMethods;
+    }
+
+    public void setRepositoryJoinedMethods(List<String> repositoryJoinedMethods) {
+        this.repositoryJoinedMethods = repositoryJoinedMethods;
     }
 }

@@ -2,8 +2,10 @@ package com.dzhao.springmvc.codegen.processor;
 
 import com.dzhao.springmvc.codegen.FreeMarkerWriter;
 import com.dzhao.springmvc.codegen.RepositoryTemplate;
+import com.dzhao.springmvc.codegen.annotation.GenerateJoinedMethod;
 import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateMethod;
+import com.dzhao.springmvc.codegen.enums.OperatorEnum;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -66,16 +68,56 @@ public class RepositoryCodeGenProcessor extends AbstractProcessor {
                 template.setRepositoryMethods(new ArrayList<String>());
                 if(repository.method()!=null) {
                     for (GenerateMethod method : repository.method()) {
+                        OperatorEnum operator = method.opertor();
                         String fieldName = method.name();
                         System.out.println(" ### field name: "  + fieldName);
-                        System.out.println(" ### field type name: "  + method.type());
+                        System.out.println(" ### field type name: " + method.type());
 
                         StringBuilder sb = new StringBuilder();
                         sb.append("List<" + modelSimpleName + "> ");
                         sb.append("findBy");
                         sb.append(fieldName.substring(0, 1).toUpperCase());
                         sb.append(fieldName.substring(1, fieldName.length()));
+                        if(!operator.equals(OperatorEnum.EQUALS)){
+                            sb.append(operator.getValue());
+                        }
                         sb.append("(" + method.type() + " " + fieldName + ");");
+                        template.getRepositoryMethods().add(sb.toString());
+                    }
+                }
+
+                if(repository.joinedMethod()!=null) {
+                    for (GenerateJoinedMethod joinedMethod : repository.joinedMethod()) {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("List<" + modelSimpleName + "> ");
+                        sb.append("findBy");
+
+                        StringBuilder methodNameBuilder = new StringBuilder();
+                        StringBuilder parameterBuilder = new StringBuilder();
+                        for (GenerateMethod method : joinedMethod.method()) {
+                            OperatorEnum operator = method.opertor();
+                            String fieldName = method.name();
+                            System.out.println(" ### field name: " + fieldName);
+                            System.out.println(" ### field type name: " + method.type());
+
+/*                            StringBuilder sb = new StringBuilder();
+                            sb.append("List<" + modelSimpleName + "> ");
+                            sb.append("findBy");*/
+                            if(methodNameBuilder.length() > 0){
+                                methodNameBuilder.append("And");
+                            }
+                            methodNameBuilder.append(fieldName.substring(0, 1).toUpperCase());
+                            methodNameBuilder.append(fieldName.substring(1, fieldName.length()));
+                            if(!operator.equals(OperatorEnum.EQUALS)){
+                                methodNameBuilder.append(operator.getValue());
+                            }
+                            if(parameterBuilder.length() > 0){
+                                parameterBuilder.append(", ");
+                            }
+                            parameterBuilder.append(method.type() + " " + fieldName);
+                        }
+                        sb.append(methodNameBuilder);
+                        sb.append("(" + parameterBuilder + ");");
                         template.getRepositoryMethods().add(sb.toString());
                     }
                 }

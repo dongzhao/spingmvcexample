@@ -18,8 +18,13 @@ public class MailServiceTest extends AbstractServiceTest{
     @Test
     public void can_send_confirmation_email_async() throws ExecutionException, InterruptedException {
         Future<Boolean> result = asyncMailService.sendEmail("dzhaoau@gmail.com", "FYI", "This is a test!");
-
+        Boolean status = null;
         System.out.println("finished...");
-        Assert.assertTrue(result.get());
+        while (!result.isDone()){
+            System.out.println("#");
+            Thread.sleep(1000);
+        }
+        status = result.get();
+        Assert.assertTrue(status);
     }
 }
