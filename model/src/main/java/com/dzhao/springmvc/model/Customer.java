@@ -3,6 +3,8 @@ package com.dzhao.springmvc.model;
 import com.dzhao.springmvc.codegen.annotation.*;
 import com.dzhao.springmvc.model.converter.BooleanToStringConverter;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
@@ -36,6 +38,7 @@ import java.util.List;
                 @GenerateMethod(name = "gender", type = "Boolean")
         }
 )
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Customer extends AbstractDomain {
     @Column(name="FIRST_NAME")
     private String firstName;

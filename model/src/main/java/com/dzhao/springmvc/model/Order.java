@@ -6,6 +6,8 @@ import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
 import com.dzhao.springmvc.codegen.enums.OperatorEnum;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +31,7 @@ import java.util.List;
         }
 )
 @GenerateRepo
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Order extends AbstractDomain {
     @Column(name="ORDER_DATE")
     private Date orderDate;

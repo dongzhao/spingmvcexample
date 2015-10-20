@@ -6,6 +6,8 @@ import com.dzhao.springmvc.codegen.annotation.GenerateRepository;
 import com.dzhao.springmvc.codegen.annotation.GenerateRestController;
 import com.dzhao.springmvc.model.converter.BooleanToStringConverter;
 import com.dzhao.springmvc.model.generic.AbstractDomain;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -34,6 +36,7 @@ import java.util.Date;
         }
 )
 @GenerateRepo
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class UserProfile extends AbstractDomain {
 
     @OneToOne(cascade = CascadeType.ALL)
