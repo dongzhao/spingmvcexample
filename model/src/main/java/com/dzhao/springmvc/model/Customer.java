@@ -13,13 +13,13 @@ import java.util.List;
 @Entity
 @Table(name = "my_customer")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "firstName", type = "String"),
                 @GenerateMethod(name = "lastName", type = "String"),
                 @GenerateMethod(name = "gender", type = "Boolean"),
-        },
-        joinedMethod = {
+        },*/
+/*        joinedMethod = {
                 @GenerateJoinedMethod(
                         method = {
                                 @GenerateMethod(name = "firstName", type = "String"),
@@ -27,25 +27,27 @@ import java.util.List;
                                 @GenerateMethod(name = "gender", type = "Boolean"),
                         }
                 )
-        }
+        }*/
 
 )
 @GenerateRestController(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "firstName", type = "String"),
                 @GenerateMethod(name = "lastName", type = "String"),
                 @GenerateMethod(name = "gender", type = "Boolean")
-        }
+        }*/
 )
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Customer extends AbstractDomain {
     @Column(name="FIRST_NAME")
+    @GenerateMethod
     private String firstName;
     @GenerateRepoMethod
     @Column(name="LAST_NAME")
     private String lastName;
     @Convert(converter = BooleanToStringConverter.class)
+    @GenerateMethod
     private Boolean gender;
 
     @ManyToMany

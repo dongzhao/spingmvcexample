@@ -12,6 +12,8 @@ public class RepositoryTemplate {
     private String repositorySimpleName;
     private List<String> repositoryMethods;
     private List<String> repositoryJoinedMethods;
+    private List<MethodTemplate> methodTemplates;
+    private String targetUrl;
 
     public String getModelPackageName() {
         return modelPackageName;
@@ -59,5 +61,21 @@ public class RepositoryTemplate {
 
     public void setRepositoryJoinedMethods(List<String> repositoryJoinedMethods) {
         this.repositoryJoinedMethods = repositoryJoinedMethods;
+    }
+
+    public List<MethodTemplate> getMethodTemplates() {
+        return methodTemplates;
+    }
+
+    public void setMethodTemplates(List<MethodTemplate> methodTemplates) {
+        this.methodTemplates = methodTemplates;
+    }
+
+    public String getTargetUrl() {
+        return targetUrl;
+    }
+
+    public void setTargetUrl(String targetUrl) {
+        this.targetUrl = targetUrl;
     }
 }

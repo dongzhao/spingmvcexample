@@ -63,9 +63,9 @@
                                 <configuration>
                                     <sourceDirectory>src/main/java</sourceDirectory>
                                     <processors>
-                                        <processor>com.dzhao.springmvc.codegen.processor.RepositoryCodeGenProcessor</processor>
-                                        <processor>com.dzhao.springmvc.codegen.processor.RestControllerCodeGenProcessor</processor>
-                                        <processor>com.dzhao.springmvc.codegen.processor.MyFieldProcessor</processor>
+                                        <processor>com.dzhao.springmvc.codegen.processor.RepositoryCodeGenProcessorTest</processor>
+                                        <!--<processor>com.dzhao.springmvc.codegen.processor.RestControllerCodeGenProcessor</processor>-->
+                                        <!--<processor>com.dzhao.springmvc.codegen.processor.MyFieldProcessor</processor>-->
                                     </processors>
                                 </configuration>
                             </execution>

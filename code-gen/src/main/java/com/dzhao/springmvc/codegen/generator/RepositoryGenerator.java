@@ -12,7 +12,6 @@ import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.util.Collection;
 
-
 /**
  * Created by dzhao on 22/09/2015.
  */

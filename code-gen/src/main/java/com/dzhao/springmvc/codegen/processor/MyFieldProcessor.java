@@ -44,6 +44,7 @@ public class MyFieldProcessor extends AbstractProcessor {
                 for (Element element : elements){
                     MyClass myClass = element.getAnnotation(MyClass.class);
                     System.out.println("### class name: " + myClass.name());
+                    System.out.println("### class name: " + element.getSimpleName());
                 }
             }else if(typeElement.getQualifiedName().toString().equalsIgnoreCase(MyField.class.getName())){
                 // process field annoatation

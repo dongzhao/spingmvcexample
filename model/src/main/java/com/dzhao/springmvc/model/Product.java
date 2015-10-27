@@ -16,20 +16,19 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "my_product")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "name", type = "String"),
                 @GenerateMethod(name = "price", type = "BigDecimal")
-        }
+        }*/
 )
 @GenerateRestController(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "name", type = "String"),
                 @GenerateMethod(name = "price", type = "BigDecimal")
-        }
+        }*/
 )
-@GenerateRepo
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Product extends AbstractDomain {
     private String name;

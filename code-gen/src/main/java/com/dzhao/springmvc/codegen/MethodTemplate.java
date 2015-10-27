@@ -1,5 +1,7 @@
 package com.dzhao.springmvc.codegen;
 
+import com.dzhao.springmvc.codegen.enums.OperatorEnum;
+
 /**
  * Created by dzhao on 1/10/2015.
  */
@@ -8,6 +10,7 @@ public class MethodTemplate {
     private String type;
     private String name;
     private String method;
+    private String operator;
 
     public String getType() {
         return type;
@@ -32,4 +35,13 @@ public class MethodTemplate {
     public void setMethod(String method) {
         this.method = method;
     }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
 }

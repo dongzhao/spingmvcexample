@@ -18,24 +18,23 @@ import java.util.Date;
 @Entity
 @Table(name = "my_user_profile")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "user", type = "User"),
                 @GenerateMethod(name = "address", type = "String"),
                 @GenerateMethod(name = "dateOfBirth", type = "Date"),
                 @GenerateMethod(name = "gender", type = "boolean")
-        }
+        }*/
 )
 @GenerateRestController(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "user", type = "User"),
                 @GenerateMethod(name = "address", type = "String"),
                 @GenerateMethod(name = "dateOfBirth", type = "Date"),
                 @GenerateMethod(name = "gender", type = "boolean")
-        }
+        }*/
 )
-@GenerateRepo
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class UserProfile extends AbstractDomain {
 

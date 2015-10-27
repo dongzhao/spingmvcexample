@@ -5,6 +5,8 @@ import ${repositoryPackageName};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,16 +28,18 @@ public class ${simpleName}{
         return ${repositoryClassName}.class.getSimpleName();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @Transactional
-    public ${modelClassName} create(@RequestBody @Valid final ${modelClassName} ${modelInstanceName}){
-        return ${repositoryInstanceName}.save(${modelInstanceName});
+    public ResponseEntity<${modelClassName}> create(@RequestBody @Valid final ${modelClassName} ${modelInstanceName}){
+        ${modelClassName} result = ${repositoryInstanceName}.save(${modelInstanceName});
+        return new ResponseEntity<${modelClassName}>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     @Transactional
-    public ${modelClassName} update(@RequestBody @Valid final ${modelClassName} ${modelInstanceName}){
-        return ${repositoryInstanceName}.save(${modelInstanceName});
+    public ResponseEntity<${modelClassName}> update(@RequestBody @Valid final ${modelClassName} ${modelInstanceName}){
+        ${modelClassName} result = ${repositoryInstanceName}.save(${modelInstanceName});
+        return new ResponseEntity<${modelClassName}>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -47,15 +51,17 @@ public class ${simpleName}{
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Transactional
     @ResponseBody
-    public ${modelClassName} findById(@PathVariable("id") String id) {
-        return ${repositoryInstanceName}.findOne(id);
+    public ResponseEntity<${modelClassName}> findById(@PathVariable("id") String id) {
+        ${modelClassName} result = ${repositoryInstanceName}.findOne(id);
+        return new ResponseEntity<${modelClassName}>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     @Transactional
     @ResponseBody
-    public List<${modelClassName}> findAll() {
-        return ${repositoryInstanceName}.findAll();
+    public ResponseEntity<List<${modelClassName}>> findAll() {
+        List<${modelClassName}> results = ${repositoryInstanceName}.findAll();
+        return new ResponseEntity<List<${modelClassName}>>(results, HttpStatus.OK);
     }
 
 <#if methods??>

@@ -19,18 +19,17 @@ import java.util.List;
 @Entity
 @Table(name = "my_order")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "orderDate", type = "Date", opertor = OperatorEnum.AFTER)
-        }
+        }*/
 )
 @GenerateRestController(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "orderDate", type = "Date", opertor = OperatorEnum.AFTER)
-        }
+        }*/
 )
-@GenerateRepo
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Order extends AbstractDomain {
     @Column(name="ORDER_DATE")

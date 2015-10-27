@@ -16,20 +16,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "my_user")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "userName", type = "String"),
                 @GenerateMethod(name = "email", type = "String")
-        }
+        }*/
 )
 @GenerateRestController(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "userName", type = "String"),
                 @GenerateMethod(name = "email", type = "String")
-        }
+        }*/
 )
-@GenerateRepo
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User extends AbstractDomain {
 

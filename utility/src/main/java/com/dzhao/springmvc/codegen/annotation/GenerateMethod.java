@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 /**
  * Created by dzhao on 22/09/2015.
  */
-@Target({ElementType.TYPE})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface GenerateMethod {
     String name() default "";

@@ -13,16 +13,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "my_order_details")
 @GenerateRepository(
-        modelPackageName = "com.dzhao.springmvc.model.*",
-        method = {
+        modelPackageName = "com.dzhao.springmvc.model.*"
+/*        method = {
                 @GenerateMethod(name = "order", type = "Order"),
                 @GenerateMethod(name = "product", type = "Product")
-        }
+        }*/
 )
 @GenerateRestController(
         modelPackageName = "com.dzhao.springmvc.model.*"
 )
-@GenerateRepo
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class OrderDetails extends AbstractDomain {
     @ManyToOne(cascade= CascadeType.ALL)
