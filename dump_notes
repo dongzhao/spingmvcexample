@@ -1,0 +1,14 @@
+command line
+
+Use jps to find out the process id
+-----------------------
+C:\>jps
+11448 MyLeakingApplication
+12084 Jps
+
+
+Use jmap to acquire the dump
+-----------------------------------------------------------------
+C:\>jmap -dump:format=b,file=c:\Temp\mymemorydump.hprof 11448
+Dumping heap to C:\Temp\mymemorydump.hprof ...
+Heap dump file created
