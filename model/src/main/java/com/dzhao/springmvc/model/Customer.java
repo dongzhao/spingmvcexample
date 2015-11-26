@@ -38,13 +38,16 @@ import java.util.List;
                 @GenerateMethod(name = "gender", type = "Boolean")
         }*/
 )
+@GeneratePersistentTest
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Customer extends AbstractDomain {
     @Column(name="FIRST_NAME")
     @GenerateMethod
+    @HasTestValue(input = "test1", expected = "test1")
     private String firstName;
     @GenerateRepoMethod
     @Column(name="LAST_NAME")
+    @HasTestValue(input = "test2", expected = "test2")
     private String lastName;
     @Convert(converter = BooleanToStringConverter.class)
     @GenerateMethod

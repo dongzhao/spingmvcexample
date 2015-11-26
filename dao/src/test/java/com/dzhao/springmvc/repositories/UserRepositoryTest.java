@@ -3,11 +3,15 @@ package com.dzhao.springmvc.repositories;
 import com.dzhao.springmvc.model.User;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by dzhao on 24/08/2015.
  */
 public class UserRepositoryTest extends AbstractRepositoryTest{
+
+    @Autowired
+    protected UserRepository userRepository;
 
     @Test
     public void testSave(){
