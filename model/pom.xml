@@ -43,6 +43,14 @@
             <artifactId>maven-processor-plugin</artifactId>
             <version>2.2.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -105,6 +113,18 @@
                         <configuration>
                             <sources>
                                 <source>target/generated-sources/apt/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-generated-test-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-test-sources/apt/</source>
                             </sources>
                         </configuration>
                     </execution>

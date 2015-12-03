@@ -2,7 +2,9 @@ package ${unitTestPackageName};
 
 import ${modelPackageName}.${modelSimpleName};
 import ${repositoryPackageName}.${repositorySimpleName};
+import ${repositoryPackageName}.AbstractRepositoryTest;
 
+import java.util.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +18,61 @@ public class ${unitTestSimpleName} extends AbstractRepositoryTest{
     protected ${repositorySimpleName} ${repositorySimpleName?uncap_first};
 
     @Test
-    public void testSave(){
-
+    public void testCreate(){
+        ${repositorySimpleName?uncap_first}.deleteAll();
         ${modelSimpleName} ${modelSimpleName?uncap_first} = new ${modelSimpleName}();
 <#if fieldTestValueTemplates??>
     <#list fieldTestValueTemplates as field>
-        ${modelSimpleName?uncap_first}.set${field.name?cap_first}("${field.testValueIn}");
+        ${modelSimpleName?uncap_first}.set${field.name?cap_first}(${field.testValueIn});
     </#list>
 </#if>
 
         ${repositorySimpleName?uncap_first}.save(${modelSimpleName?uncap_first});
 
-        ${modelSimpleName} result = ${repositorySimpleName?uncap_first}.findOne(${modelSimpleName?uncap_first}.getId());
-        Assert.assertNotNull(result);
+        ${modelSimpleName} actural = ${repositorySimpleName?uncap_first}.findOne(${modelSimpleName?uncap_first}.getId());
+        Assert.assertNotNull(actural);
 <#if fieldTestValueTemplates??>
     <#list fieldTestValueTemplates as field>
-        Assert.assertEquals("${field.testValueOut}", ${modelSimpleName?uncap_first}.get${field.name?cap_first}());
+        <#if field.type=="boolean">
+        Assert.assertEquals(${field.testValueOut}, actural.is${field.name?cap_first}());
+        <#else>
+        Assert.assertEquals(${field.testValueOut}, actural.get${field.name?cap_first}());
+        </#if>
     </#list>
 </#if>
 
+    }
+
+    @Test
+    public void testDelete(){
+        ${repositorySimpleName?uncap_first}.deleteAll();
+        ${modelSimpleName} ${modelSimpleName?uncap_first} = new ${modelSimpleName}();
+<#if fieldTestValueTemplates??>
+    <#list fieldTestValueTemplates as field>
+        ${modelSimpleName?uncap_first}.set${field.name?cap_first}(${field.testValueIn});
+    </#list>
+</#if>
+        ${repositorySimpleName?uncap_first}.save(${modelSimpleName?uncap_first});
+        ${modelSimpleName} result = ${repositorySimpleName?uncap_first}.findOne(${modelSimpleName?uncap_first}.getId());
+        Assert.assertNotNull(result);
+
+        ${repositorySimpleName?uncap_first}.delete(result.getId());
+        ${modelSimpleName} actural = ${repositorySimpleName?uncap_first}.findOne(result.getId());
+        Assert.assertNull(actural);
+    }
+
+    @Test
+    public void testGetAll(){
+        ${repositorySimpleName?uncap_first}.deleteAll();
+        ${modelSimpleName} ${modelSimpleName?uncap_first} = new ${modelSimpleName}();
+<#if fieldTestValueTemplates??>
+    <#list fieldTestValueTemplates as field>
+        ${modelSimpleName?uncap_first}.set${field.name?cap_first}(${field.testValueIn});
+    </#list>
+</#if>
+        ${repositorySimpleName?uncap_first}.save(${modelSimpleName?uncap_first});
+        List<${modelSimpleName}> actural = ${repositorySimpleName?uncap_first}.findAll();
+        Assert.assertNotNull(actural);
+        Assert.assertEquals(1, actural.size());
     }
 }

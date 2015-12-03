@@ -51,6 +51,7 @@ public class Customer extends AbstractDomain {
     private String lastName;
     @Convert(converter = BooleanToStringConverter.class)
     @GenerateMethod
+    @HasTestValue(input = "true", expected = "true")
     private Boolean gender;
 
     @ManyToMany

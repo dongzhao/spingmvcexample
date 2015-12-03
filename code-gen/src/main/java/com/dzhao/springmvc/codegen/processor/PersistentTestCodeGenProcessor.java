@@ -84,8 +84,9 @@ public class PersistentTestCodeGenProcessor extends AbstractProcessor {
                             FieldTestValueTemplate fieldInfoTemplate = new FieldTestValueTemplate();
                             fieldInfoTemplate.setName(enclosedElement.getSimpleName().toString());
                             fieldInfoTemplate.setType(fieldType);
-                            fieldInfoTemplate.setTestValueIn(hasTestValue.input());
-                            fieldInfoTemplate.setTestValueOut(hasTestValue.expected().isEmpty() ? hasTestValue.input() : hasTestValue.expected());
+                            fieldInfoTemplate.setTestValueIn(resetModelValue(hasTestValue.input(), fieldType));
+                            String valueOut = hasTestValue.expected().isEmpty() ? hasTestValue.input() : hasTestValue.expected();
+                            fieldInfoTemplate.setTestValueOut(resetModelValue(valueOut, fieldType));
                             template.getFieldTestValueTemplates().add(fieldInfoTemplate);
                         }
                     }
@@ -107,6 +108,19 @@ public class PersistentTestCodeGenProcessor extends AbstractProcessor {
             }
         }
         return false;
+    }
+
+    private static String resetModelValue(String value, String type){
+        if(boolean.class.getName().equals(type) || Boolean.class.getName().equals(type) ||
+                int.class.getName().equals(type) || Integer.class.getName().equals(type) ||
+                float.class.getName().equals(type) || Float.class.getName().equals(type) ||
+                double.class.getName().equals(type) || Double.class.getName().equals(type) ||
+                char.class.getName().equals(type) || Character.class.getName().equals(type) ){
+            return value;
+        }else if(String.class.getName().equals(type)){
+            return "\"" + value + "\"";
+        }
+        throw new RuntimeException("Unsupported field type [" + type + "]");
     }
 
 }
